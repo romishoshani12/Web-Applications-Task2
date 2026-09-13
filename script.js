@@ -150,3 +150,84 @@ const LEVELS = [
         }
     }
 ];
+
+const STORAGE_KEY = "toy-and-flower-progress-v1";
+const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+const elements = {
+    levelButtons: document.querySelector("#level-buttons"),
+    currentLevelNumber: document.querySelector("#current-level-number"),
+    totalLevels: document.querySelector("#total-levels"),
+    levelBadge: document.querySelector("#level-badge"),
+    levelTitle: document.querySelector("#level-title"),
+    levelInstruction: document.querySelector("#level-instruction"),
+    levelLearning: document.querySelector("#level-learning"),
+    propertyControls: document.querySelector("#property-controls"),
+    flexForm: document.querySelector("#flex-form"),
+    checkButton: document.querySelector("#check-button"),
+    resetButton: document.querySelector("#reset-button"),
+    nextButton: document.querySelector("#next-button"),
+    feedback: document.querySelector("#feedback"),
+    feedbackText: document.querySelector("#feedback-text"),
+    attemptCount: document.querySelector("#attempt-count"),
+    scoreCount: document.querySelector("#score-count"),
+    headerProgressText: document.querySelector("#header-progress-text"),
+    headerProgressFill: document.querySelector("#header-progress-fill"),
+    gameBoard: document.querySelector("#game-board"),
+    targetLayer: document.querySelector("#target-layer"),
+    playerLayer: document.querySelector("#player-layer"),
+    reactionCard: document.querySelector("#reaction-card"),
+    reactionImage: document.querySelector("#reaction-image"),
+    reactionText: document.querySelector("#reaction-text"),
+    completionDialog: document.querySelector("#completion-dialog"),
+    finalScore: document.querySelector("#final-score"),
+    replayButton: document.querySelector("#replay-button"),
+    closeDialogButton: document.querySelector("#close-dialog-button")
+};
+
+let state = loadProgress();
+let currentSelections = { ...DEFAULT_FLEX_VALUES };
+let currentAttempts = 0;
+let levelSolved = false;
+let feedbackTimer;
+
+function emptyProgress() {
+    return {
+        currentLevel: 0,
+        highestUnlocked: 0,
+        completedLevels: [],
+        scores: {}
+    };
+}
+
+function loadProgress() {
+    try {
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+        if (!saved || typeof saved !== "object") {
+            return emptyProgress();
+        }
+
+        const completedLevels = Array.isArray(saved.completedLevels)
+            ? [...new Set(saved.completedLevels)].filter(
+                (level) => Number.isInteger(level) && level >= 0 && level < LEVELS.length
+            )
+            : [];
+
+        return {
+            currentLevel: Math.min(Math.max(Number(saved.currentLevel) || 0, 0), LEVELS.length - 1),
+            highestUnlocked: Math.min(Math.max(Number(saved.highestUnlocked) || 0, 0), LEVELS.length - 1),
+            completedLevels,
+            scores: saved.scores && typeof saved.scores === "object" ? saved.scores : {}
+        };
+    } catch (error) {
+        return emptyProgress();
+    }
+}
+
+function saveProgress() {
+    try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    } catch (error) {
+        // המשחק נשאר פעיל גם כאשר הדפדפן חוסם אחסון מקומי.
+    }
+}
