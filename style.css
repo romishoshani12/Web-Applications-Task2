@@ -216,3 +216,56 @@ select:focus-visible,
     color: var(--ink);
     font-weight: 900;
 }
+
+.game-workspace {
+    display: flex;
+    align-items: stretch;
+    gap: 1rem;
+}
+
+.control-panel,
+.board-card {
+    border: 1px solid rgba(128, 87, 217, 0.15);
+    border-radius: var(--radius-large);
+    background: var(--paper);
+    box-shadow: var(--shadow);
+}
+
+.control-panel {
+    width: 23rem;
+    flex: 0 0 23rem;
+    padding: 1.35rem;
+    background: linear-gradient(180deg, #ffffff, #fff9fd);
+}
+
+.level-heading {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+}
+
+.level-heading h2,
+.board-heading h2 {
+    font-size: 1.35rem;
+}
+
+.level-badge {
+    padding: 0.32rem 0.65rem;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #ffe2f1, #eadfff);
+    color: var(--purple-dark);
+    font-size: 0.76rem;
+    font-weight: 900;
+    white-space: nowrap;
+}
+
+.level-instruction {
+    margin: 1rem 0 0.5rem;
+    font-weight: 800;
+}
+
+.learning-note {
+    margin: 0 0 1rem;
+    color: var(--muted);
+    font-size: 0.9rem;
+}
