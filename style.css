@@ -507,6 +507,15 @@ select:focus-visible,
     box-shadow: 0 0 0 5px rgba(179, 63, 67, 0.1);
 }
 
+.level-stats {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 0.82rem;
+    color: var(--muted);
+    font-size: 0.8rem;
+}
+
 .board-card {
     position: relative;
     min-width: 0;
