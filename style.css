@@ -217,6 +217,75 @@ select:focus-visible,
     font-weight: 900;
 }
 
+.level-navigation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin: 1rem 0;
+    padding: 0.78rem 1rem;
+    overflow-x: auto;
+    border: 1px solid rgba(128, 87, 217, 0.17);
+    border-radius: var(--radius-medium);
+    background: rgba(255, 255, 255, 0.84);
+    box-shadow: 0 10px 28px rgba(94, 53, 123, 0.08);
+}
+
+.level-navigation-label {
+    flex: 0 0 auto;
+    padding: 0.32rem 0.65rem;
+    border-radius: 999px;
+    background: var(--lavender);
+    color: var(--purple-dark);
+    font-family: Arial, "Segoe UI", sans-serif;
+    font-size: 0.88rem;
+    font-weight: 800;
+    letter-spacing: 0;
+}
+
+.level-buttons {
+    display: flex;
+    gap: 0.55rem;
+}
+
+.level-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.45rem;
+    height: 2.45rem;
+    flex: 0 0 auto;
+    border: 1px solid #e8d9ef;
+    border-radius: 50%;
+    background: #ffffff;
+    color: var(--muted);
+    cursor: pointer;
+    font-weight: 900;
+    transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.level-button:hover:not(:disabled) {
+    transform: translateY(-2px);
+}
+
+.level-button.current {
+    border-color: transparent;
+    background: linear-gradient(135deg, var(--pink), var(--purple));
+    color: #ffffff;
+    box-shadow: 0 7px 16px rgba(166, 63, 145, 0.27);
+}
+
+.level-button.completed:not(.current) {
+    border-color: #cdb8ef;
+    background: var(--lavender);
+    color: var(--purple-dark);
+}
+
+.level-button:disabled {
+    opacity: 0.42;
+    cursor: not-allowed;
+}
+
 .game-workspace {
     display: flex;
     align-items: stretch;
