@@ -269,3 +269,91 @@ select:focus-visible,
     color: var(--muted);
     font-size: 0.9rem;
 }
+
+.code-block {
+    overflow: hidden;
+    border: 1px solid #584069;
+    border-radius: 0.9rem;
+    background: linear-gradient(145deg, #3d2949, #2d233b);
+    color: #f6f8f7;
+    direction: ltr;
+}
+
+.code-line {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.7rem;
+    min-height: 3rem;
+    padding: 0.55rem 0.75rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.code-line:last-child {
+    border-bottom: 0;
+}
+
+.code-line code {
+    color: #ffd8ef;
+    font-family: Consolas, Monaco, monospace;
+    font-size: 0.84rem;
+}
+
+.code-line-fixed span {
+    color: #a9bbb3;
+    font-size: 0.72rem;
+}
+
+.code-line select {
+    width: 9.4rem;
+    min-height: 2.15rem;
+    padding: 0.25rem 0.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 0.5rem;
+    background: #ffffff;
+    color: var(--ink);
+    cursor: pointer;
+    font-family: Consolas, Monaco, monospace;
+    font-size: 0.8rem;
+}
+
+.action-buttons,
+.dialog-actions {
+    display: flex;
+    gap: 0.65rem;
+    margin-top: 1rem;
+}
+
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.85rem;
+    padding: 0.62rem 1rem;
+    border-radius: 0.75rem;
+    cursor: pointer;
+    font-weight: 900;
+    transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
+}
+
+.button:hover:not(:disabled) {
+    transform: translateY(-2px);
+}
+
+.button-primary {
+    flex: 1;
+    background: linear-gradient(135deg, var(--pink), var(--purple));
+    color: #ffffff;
+    box-shadow: 0 10px 22px rgba(168, 54, 139, 0.24);
+}
+
+.button-secondary {
+    border: 1px solid var(--line);
+    background: #fbf7ff;
+    color: var(--ink);
+}
+
+.button:disabled {
+    opacity: 0.44;
+    cursor: not-allowed;
+}

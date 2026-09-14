@@ -231,3 +231,37 @@ function saveProgress() {
         // המשחק נשאר פעיל גם כאשר הדפדפן חוסם אחסון מקומי.
     }
 }
+
+function renderPropertyControls(level) {
+    elements.propertyControls.replaceChildren();
+
+    level.properties.forEach((propertyKey) => {
+        const setting = PROPERTY_SETTINGS[propertyKey];
+        const row = document.createElement("label");
+        const codeName = document.createElement("code");
+        const select = document.createElement("select");
+
+        row.className = "code-line";
+        row.title = setting.label;
+        codeName.textContent = `${setting.cssName}:`;
+        select.name = propertyKey;
+        select.setAttribute("aria-label", `${setting.label} — ${setting.cssName}`);
+
+        setting.options.forEach((optionValue) => {
+            const option = document.createElement("option");
+            option.value = optionValue;
+            option.textContent = optionValue;
+            option.selected = optionValue === currentSelections[propertyKey];
+            select.append(option);
+        });
+
+        select.addEventListener("change", (event) => {
+            currentSelections[propertyKey] = event.target.value;
+            clearFeedback("הבחירה מוכנה. לחצו על הכפתור בדיקת פתרון כדי להזיז את טוי.");
+            hideReaction();
+        });
+
+        row.append(codeName, select);
+        elements.propertyControls.append(row);
+    });
+}
