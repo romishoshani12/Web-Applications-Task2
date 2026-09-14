@@ -21,6 +21,7 @@
                     <span class="brand-subtitle">משחק Flexbox</span>
                 </span>
             </a>
+
         </header>
 
         <main id="game-main">
@@ -36,6 +37,33 @@
                     <span>מתוך <span id="total-levels" class="text-emphasis">10</span></span>
                 </div>
             </section>
+
+            <div class="game-workspace">
+                <section class="control-panel" aria-labelledby="level-title">
+                    <div class="level-heading">
+                        <span id="level-badge" class="level-badge">שלב 1</span>
+                        <h2 id="level-title">אל הפרח הראשון</h2>
+                    </div>
+
+                    <p id="level-instruction" class="level-instruction"></p>
+                    <p id="level-learning" class="learning-note"></p>
+
+                    <form id="flex-form" novalidate>
+                        <div class="code-block" aria-label="הגדרות Flexbox">
+                            <div class="code-line code-line-fixed">
+                                <code>display: flex;</code>
+                                <span>קבוע</span>
+                            </div>
+                            <div id="property-controls"></div>
+                        </div>
+
+                        <div class="action-buttons">
+                            <button class="button button-primary" id="check-button" type="submit">בדיקת פתרון</button>
+                            <button class="button button-secondary" id="reset-button" type="button">איפוס</button>
+                        </div>
+                    </form>
+                </section>
+            </div>
         </main>
     </div>
     <script src="script.js"></script>

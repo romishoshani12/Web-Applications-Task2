@@ -216,3 +216,144 @@ select:focus-visible,
     color: var(--ink);
     font-weight: 900;
 }
+
+.game-workspace {
+    display: flex;
+    align-items: stretch;
+    gap: 1rem;
+}
+
+.control-panel,
+.board-card {
+    border: 1px solid rgba(128, 87, 217, 0.15);
+    border-radius: var(--radius-large);
+    background: var(--paper);
+    box-shadow: var(--shadow);
+}
+
+.control-panel {
+    width: 23rem;
+    flex: 0 0 23rem;
+    padding: 1.35rem;
+    background: linear-gradient(180deg, #ffffff, #fff9fd);
+}
+
+.level-heading {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+}
+
+.level-heading h2,
+.board-heading h2 {
+    font-size: 1.35rem;
+}
+
+.level-badge {
+    padding: 0.32rem 0.65rem;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #ffe2f1, #eadfff);
+    color: var(--purple-dark);
+    font-size: 0.76rem;
+    font-weight: 900;
+    white-space: nowrap;
+}
+
+.level-instruction {
+    margin: 1rem 0 0.5rem;
+    font-weight: 800;
+}
+
+.learning-note {
+    margin: 0 0 1rem;
+    color: var(--muted);
+    font-size: 0.9rem;
+}
+
+.code-block {
+    overflow: hidden;
+    border: 1px solid #584069;
+    border-radius: 0.9rem;
+    background: linear-gradient(145deg, #3d2949, #2d233b);
+    color: #f6f8f7;
+    direction: ltr;
+}
+
+.code-line {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.7rem;
+    min-height: 3rem;
+    padding: 0.55rem 0.75rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.code-line:last-child {
+    border-bottom: 0;
+}
+
+.code-line code {
+    color: #ffd8ef;
+    font-family: Consolas, Monaco, monospace;
+    font-size: 0.84rem;
+}
+
+.code-line-fixed span {
+    color: #a9bbb3;
+    font-size: 0.72rem;
+}
+
+.code-line select {
+    width: 9.4rem;
+    min-height: 2.15rem;
+    padding: 0.25rem 0.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 0.5rem;
+    background: #ffffff;
+    color: var(--ink);
+    cursor: pointer;
+    font-family: Consolas, Monaco, monospace;
+    font-size: 0.8rem;
+}
+
+.action-buttons,
+.dialog-actions {
+    display: flex;
+    gap: 0.65rem;
+    margin-top: 1rem;
+}
+
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.85rem;
+    padding: 0.62rem 1rem;
+    border-radius: 0.75rem;
+    cursor: pointer;
+    font-weight: 900;
+    transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
+}
+
+.button:hover:not(:disabled) {
+    transform: translateY(-2px);
+}
+
+.button-primary {
+    flex: 1;
+    background: linear-gradient(135deg, var(--pink), var(--purple));
+    color: #ffffff;
+    box-shadow: 0 10px 22px rgba(168, 54, 139, 0.24);
+}
+
+.button-secondary {
+    border: 1px solid var(--line);
+    background: #fbf7ff;
+    color: var(--ink);
+}
+
+.button:disabled {
+    opacity: 0.44;
+    cursor: not-allowed;
+}
