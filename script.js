@@ -419,6 +419,22 @@ async function animateToyToSelection() {
     await Promise.allSettled(animations);
 }
 
+function showReaction(type, imagePath, text) {
+    window.clearTimeout(feedbackTimer);
+    elements.reactionCard.className = `reaction-card visible ${type}`;
+    elements.reactionCard.setAttribute("aria-hidden", "false");
+    elements.reactionImage.src = imagePath;
+    elements.reactionImage.alt = type === "success" ? "טוי שמחה" : "טוי עצובה";
+    elements.reactionText.textContent = text;
+
+    feedbackTimer = window.setTimeout(hideReaction, type === "success" ? 3200 : 2800);
+}
+
+function hideReaction() {
+    elements.reactionCard.className = "reaction-card";
+    elements.reactionCard.setAttribute("aria-hidden", "true");
+}
+
 function updateProgressDisplay() {
     const completedCount = state.completedLevels.length;
     const progressPercent = (completedCount / LEVELS.length) * 100;
