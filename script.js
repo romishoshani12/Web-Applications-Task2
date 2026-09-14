@@ -419,6 +419,16 @@ async function animateToyToSelection() {
     await Promise.allSettled(animations);
 }
 
+function updateProgressDisplay() {
+    const completedCount = state.completedLevels.length;
+    const progressPercent = (completedCount / LEVELS.length) * 100;
+    const totalScore = Object.values(state.scores).reduce((sum, score) => sum + Number(score || 0), 0);
+
+    elements.headerProgressText.textContent = `${completedCount} מתוך ${LEVELS.length} שלבים הושלמו`;
+    elements.headerProgressFill.style.width = `${progressPercent}%`;
+    elements.scoreCount.textContent = String(totalScore);
+}
+
 function clearFeedback(message = "בחרו ערכים ובדקו את הפתרון.") {
     elements.feedback.className = "feedback";
     elements.feedbackText.textContent = message;
