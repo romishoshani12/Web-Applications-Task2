@@ -475,3 +475,32 @@ select:focus-visible,
     transform: scale(1.22);
     transition: transform 0.3s ease, border-color 0.3s ease;
 }
+
+.board-legend {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 0.82rem;
+    color: var(--muted);
+    font-size: 0.82rem;
+}
+
+.board-legend > span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.legend-dot {
+    width: 0.72rem;
+    height: 0.72rem;
+    border-radius: 50%;
+}
+
+.toy-dot {
+    background: var(--pink);
+}
+
+.flower-dot {
+    background: var(--sun);
+}
