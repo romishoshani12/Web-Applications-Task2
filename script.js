@@ -314,6 +314,41 @@ function applyFlexValues(layer, values) {
     });
 }
 
+async function animateToyToSelection() {
+    const slots = [...elements.playerLayer.children];
+
+    if (reducedMotion.matches || typeof slots[0]?.animate !== "function") {
+        applyFlexValues(elements.playerLayer, currentSelections);
+        await new Promise((resolve) => window.setTimeout(resolve, 300));
+        return;
+    }
+
+    const startRects = slots.map((slot) => slot.getBoundingClientRect());
+    applyFlexValues(elements.playerLayer, currentSelections);
+    const endRects = slots.map((slot) => slot.getBoundingClientRect());
+
+    const animations = slots.map((slot, index) => {
+        const deltaX = startRects[index].left - endRects[index].left;
+        const deltaY = startRects[index].top - endRects[index].top;
+
+        return slot.animate(
+            [
+                { transform: `translate(${deltaX}px, ${deltaY}px) scale(0.96)` },
+                { transform: "translate(0, -4px) scale(1.04)", offset: 0.86 },
+                { transform: "translate(0, 0) scale(1)" }
+            ],
+            {
+                duration: 900,
+                delay: index * 70,
+                easing: "cubic-bezier(0.2, 0.72, 0.2, 1)",
+                fill: "both"
+            }
+        ).finished;
+    });
+
+    await Promise.allSettled(animations);
+}
+
 function clearFeedback(message = "בחרו ערכים ובדקו את הפתרון.") {
     elements.feedback.className = "feedback";
     elements.feedbackText.textContent = message;
