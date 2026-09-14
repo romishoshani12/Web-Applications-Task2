@@ -21,6 +21,13 @@
                     <span class="brand-subtitle">משחק Flexbox</span>
                 </span>
             </a>
+
+            <div class="header-progress" aria-label="התקדמות במשחק">
+                <span id="header-progress-text">0 מתוך 10 שלבים הושלמו</span>
+                <div class="progress-track" aria-hidden="true">
+                    <span id="header-progress-fill"></span>
+                </div>
+            </div>
         </header>
 
         <main id="game-main">
@@ -36,6 +43,11 @@
                     <span>מתוך <span id="total-levels" class="text-emphasis">10</span></span>
                 </div>
             </section>
+
+            <nav class="level-navigation" aria-label="בחירת שלב">
+                <span class="level-navigation-label">מפת השלבים</span>
+                <div id="level-buttons" class="level-buttons"></div>
+            </nav>
 
             <div class="game-workspace">
                 <section class="control-panel" aria-labelledby="level-title">
@@ -67,6 +79,11 @@
                         <span id="feedback-text">בחרו ערכים ובדקו את הפתרון.</span>
                     </div>
 
+                    <div class="level-stats">
+                        <span>ניסיונות: <span id="attempt-count" class="text-emphasis">0</span></span>
+                        <span>ניקוד: <span id="score-count" class="text-emphasis">0</span></span>
+                    </div>
+
                 </section>
 
                 <section class="board-card" aria-labelledby="board-title">
@@ -88,10 +105,13 @@
                         <span><i class="legend-dot toy-dot"></i> טוי</span>
                         <span><i class="legend-dot flower-dot"></i> פרח</span>
                     </div>
+
                 </section>
             </div>
         </main>
     </div>
+
+
     <script src="script.js"></script>
 </body>
 </html>

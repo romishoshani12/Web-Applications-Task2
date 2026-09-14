@@ -152,6 +152,30 @@ select:focus-visible,
     font-size: 0.83rem;
 }
 
+.header-progress {
+    width: min(20rem, 42vw);
+    color: var(--muted);
+    font-size: 0.88rem;
+}
+
+.progress-track {
+    height: 0.58rem;
+    margin-top: 0.42rem;
+    overflow: hidden;
+    border: 1px solid rgba(128, 87, 217, 0.18);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.78);
+}
+
+.progress-track span {
+    display: block;
+    width: 0;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, var(--purple), var(--pink), var(--sun));
+    transition: width 0.35s ease;
+}
+
 .intro-card {
     position: relative;
     display: flex;
@@ -215,6 +239,75 @@ select:focus-visible,
 .text-emphasis {
     color: var(--ink);
     font-weight: 900;
+}
+
+.level-navigation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin: 1rem 0;
+    padding: 0.78rem 1rem;
+    overflow-x: auto;
+    border: 1px solid rgba(128, 87, 217, 0.17);
+    border-radius: var(--radius-medium);
+    background: rgba(255, 255, 255, 0.84);
+    box-shadow: 0 10px 28px rgba(94, 53, 123, 0.08);
+}
+
+.level-navigation-label {
+    flex: 0 0 auto;
+    padding: 0.32rem 0.65rem;
+    border-radius: 999px;
+    background: var(--lavender);
+    color: var(--purple-dark);
+    font-family: Arial, "Segoe UI", sans-serif;
+    font-size: 0.88rem;
+    font-weight: 800;
+    letter-spacing: 0;
+}
+
+.level-buttons {
+    display: flex;
+    gap: 0.55rem;
+}
+
+.level-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.45rem;
+    height: 2.45rem;
+    flex: 0 0 auto;
+    border: 1px solid #e8d9ef;
+    border-radius: 50%;
+    background: #ffffff;
+    color: var(--muted);
+    cursor: pointer;
+    font-weight: 900;
+    transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.level-button:hover:not(:disabled) {
+    transform: translateY(-2px);
+}
+
+.level-button.current {
+    border-color: transparent;
+    background: linear-gradient(135deg, var(--pink), var(--purple));
+    color: #ffffff;
+    box-shadow: 0 7px 16px rgba(166, 63, 145, 0.27);
+}
+
+.level-button.completed:not(.current) {
+    border-color: #cdb8ef;
+    background: var(--lavender);
+    color: var(--purple-dark);
+}
+
+.level-button:disabled {
+    opacity: 0.42;
+    cursor: not-allowed;
 }
 
 .game-workspace {
@@ -412,6 +505,15 @@ select:focus-visible,
 .feedback.error .feedback-icon {
     background: var(--error);
     box-shadow: 0 0 0 5px rgba(179, 63, 67, 0.1);
+}
+
+.level-stats {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 0.82rem;
+    color: var(--muted);
+    font-size: 0.8rem;
 }
 
 .board-card {

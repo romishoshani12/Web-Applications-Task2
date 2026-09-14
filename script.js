@@ -232,6 +232,76 @@ function saveProgress() {
     }
 }
 
+function createLevelNavigation() {
+    elements.levelButtons.replaceChildren();
+
+    LEVELS.forEach((level, index) => {
+        const button = document.createElement("button");
+        const completed = state.completedLevels.includes(index);
+
+        button.type = "button";
+        button.className = "level-button";
+        button.textContent = completed ? "✓" : String(index + 1);
+        button.title = completed ? `שלב ${index + 1} הושלם — אפשר לשחק שוב` : `מעבר לשלב ${index + 1}`;
+        button.setAttribute("aria-label", completed ? `שלב ${index + 1}, הושלם` : `שלב ${index + 1}`);
+        button.disabled = index > state.highestUnlocked;
+        button.classList.toggle("completed", completed);
+        button.classList.toggle("current", index === state.currentLevel);
+        button.addEventListener("click", () => renderLevel(index));
+
+        elements.levelButtons.append(button);
+    });
+}
+
+function renderLevel(levelIndex) {
+    if (levelIndex > state.highestUnlocked) {
+        return;
+    }
+
+    window.clearTimeout(feedbackTimer);
+    hideReaction();
+    state.currentLevel = levelIndex;
+    saveProgress();
+
+    const level = LEVELS[levelIndex];
+    currentSelections = getLevelStartValues(level);
+    currentAttempts = 0;
+    levelSolved = false;
+
+    elements.currentLevelNumber.textContent = String(levelIndex + 1);
+    elements.totalLevels.textContent = String(LEVELS.length);
+    elements.levelBadge.textContent = `שלב ${levelIndex + 1}`;
+    elements.levelTitle.textContent = level.title;
+    elements.levelInstruction.textContent = level.instruction;
+    elements.levelLearning.textContent = level.learning;
+    elements.attemptCount.textContent = "0";
+    elements.checkButton.disabled = false;
+    elements.nextButton.disabled = true;
+    setNextButtonLabel(levelIndex === LEVELS.length - 1 ? "לסיכום המשחק" : "לשלב הבא");
+
+    clearFeedback();
+    renderPropertyControls(level);
+    renderPieces(level);
+    applyFlexValues(elements.playerLayer, currentSelections);
+    applyFlexValues(elements.targetLayer, { ...DEFAULT_FLEX_VALUES, ...level.solution });
+    updateProgressDisplay();
+    createLevelNavigation();
+}
+
+function getLevelStartValues(level) {
+    return {
+        ...DEFAULT_FLEX_VALUES,
+        flexWrap: level.itemCount >= 5 ? "wrap" : DEFAULT_FLEX_VALUES.flexWrap
+    };
+}
+
+function setNextButtonLabel(label) {
+    const arrow = document.createElement("span");
+    arrow.setAttribute("aria-hidden", "true");
+    arrow.textContent = "←";
+    elements.nextButton.replaceChildren(document.createTextNode(label + " "), arrow);
+}
+
 function renderPropertyControls(level) {
     elements.propertyControls.replaceChildren();
 
@@ -347,6 +417,16 @@ async function animateToyToSelection() {
     });
 
     await Promise.allSettled(animations);
+}
+
+function updateProgressDisplay() {
+    const completedCount = state.completedLevels.length;
+    const progressPercent = (completedCount / LEVELS.length) * 100;
+    const totalScore = Object.values(state.scores).reduce((sum, score) => sum + Number(score || 0), 0);
+
+    elements.headerProgressText.textContent = `${completedCount} מתוך ${LEVELS.length} שלבים הושלמו`;
+    elements.headerProgressFill.style.width = `${progressPercent}%`;
+    elements.scoreCount.textContent = String(totalScore);
 }
 
 function clearFeedback(message = "בחרו ערכים ובדקו את הפתרון.") {
