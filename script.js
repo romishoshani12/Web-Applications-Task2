@@ -265,3 +265,51 @@ function renderPropertyControls(level) {
         elements.propertyControls.append(row);
     });
 }
+
+function renderPieces(level) {
+    elements.targetLayer.replaceChildren();
+    elements.playerLayer.replaceChildren();
+    elements.gameBoard.classList.remove("success", "error");
+
+    for (let index = 0; index < level.itemCount; index += 1) {
+        const targetSlot = createPieceSlot(level);
+        const flower = document.createElement("img");
+        const playerSlot = createPieceSlot(level);
+        const toy = document.createElement("img");
+        const targetNumber = document.createElement("span");
+        const playerNumber = document.createElement("span");
+
+        flower.className = "flower-piece";
+        flower.src = IMAGE_PATHS.flower;
+        flower.alt = "";
+
+        targetNumber.className = "piece-number target-number";
+        targetNumber.textContent = String(index + 1);
+
+        toy.className = "toy-piece";
+        toy.src = IMAGE_PATHS.toy;
+        toy.alt = `טוי מספר ${index + 1}`;
+
+        playerNumber.className = "piece-number player-number";
+        playerNumber.textContent = String(index + 1);
+
+        targetSlot.append(flower, targetNumber);
+        playerSlot.append(toy, playerNumber);
+        elements.targetLayer.append(targetSlot);
+        elements.playerLayer.append(playerSlot);
+    }
+}
+
+function createPieceSlot(level) {
+    const slot = document.createElement("div");
+    slot.className = "piece-slot";
+    slot.style.width = `${level.itemWidth || 96}px`;
+    slot.style.height = `${level.itemHeight || 96}px`;
+    return slot;
+}
+
+function applyFlexValues(layer, values) {
+    Object.entries(DEFAULT_FLEX_VALUES).forEach(([propertyKey, defaultValue]) => {
+        layer.style[propertyKey] = values[propertyKey] || defaultValue;
+    });
+}
