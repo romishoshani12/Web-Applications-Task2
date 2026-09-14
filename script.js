@@ -313,3 +313,8 @@ function applyFlexValues(layer, values) {
         layer.style[propertyKey] = values[propertyKey] || defaultValue;
     });
 }
+
+function clearFeedback(message = "בחרו ערכים ובדקו את הפתרון.") {
+    elements.feedback.className = "feedback";
+    elements.feedbackText.textContent = message;
+}

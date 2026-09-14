@@ -358,6 +358,62 @@ select:focus-visible,
     cursor: not-allowed;
 }
 
+.feedback {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    min-height: 3.65rem;
+    margin-top: 1rem;
+    padding: 0.75rem;
+    border: 1px solid var(--line);
+    border-radius: 0.8rem;
+    background: #f8faf9;
+    color: var(--muted);
+    font-size: 0.88rem;
+}
+
+.feedback-icon {
+    width: 0.72rem;
+    height: 0.72rem;
+    margin-top: 0.3rem;
+    flex: 0 0 auto;
+    border-radius: 50%;
+    background: #98a69f;
+}
+
+.feedback.moving {
+    border-color: rgba(128, 87, 217, 0.28);
+    background: #f4efff;
+    color: var(--purple-dark);
+}
+
+.feedback.moving .feedback-icon {
+    background: var(--purple);
+    animation: pulse-dot 0.7s ease-in-out infinite alternate;
+}
+
+.feedback.success {
+    border-color: rgba(40, 118, 74, 0.3);
+    background: #edf8f0;
+    color: var(--success);
+}
+
+.feedback.success .feedback-icon {
+    background: var(--success);
+    box-shadow: 0 0 0 5px rgba(40, 118, 74, 0.12);
+}
+
+.feedback.error {
+    border-color: rgba(179, 63, 67, 0.28);
+    background: #fff0f0;
+    color: var(--error);
+}
+
+.feedback.error .feedback-icon {
+    background: var(--error);
+    box-shadow: 0 0 0 5px rgba(179, 63, 67, 0.1);
+}
+
 .board-card {
     position: relative;
     min-width: 0;
@@ -503,4 +559,9 @@ select:focus-visible,
 
 .flower-dot {
     background: var(--sun);
+}
+
+@keyframes pulse-dot {
+    from { transform: scale(0.85); }
+    to { transform: scale(1.25); }
 }
