@@ -516,6 +516,15 @@ select:focus-visible,
     font-size: 0.8rem;
 }
 
+.button-next {
+    width: 100%;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    background: linear-gradient(135deg, #7052c7, #a65ed7);
+    color: #ffffff;
+    box-shadow: 0 9px 20px rgba(92, 56, 165, 0.23);
+}
+
 .board-card {
     position: relative;
     min-width: 0;

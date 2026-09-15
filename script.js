@@ -384,6 +384,44 @@ function applyFlexValues(layer, values) {
     });
 }
 
+async function checkSolution(event) {
+    event.preventDefault();
+
+    if (levelSolved || elements.checkButton.disabled) {
+        return;
+    }
+
+    const level = LEVELS[state.currentLevel];
+    const wrongProperties = level.properties.filter(
+        (propertyKey) => currentSelections[propertyKey] !== level.solution[propertyKey]
+    );
+
+    currentAttempts += 1;
+    elements.attemptCount.textContent = String(currentAttempts);
+    setGameControlsDisabled(true);
+    elements.feedback.className = "feedback moving";
+    elements.feedbackText.textContent = "טוי יוצאת לדרך…";
+
+    await animateToyToSelection();
+
+    if (wrongProperties.length > 0) {
+        showWrongAnswer(wrongProperties);
+        setGameControlsDisabled(false);
+        return;
+    }
+
+    completeCurrentLevel();
+    elements.resetButton.disabled = false;
+}
+
+function setGameControlsDisabled(disabled) {
+    elements.checkButton.disabled = disabled;
+    elements.resetButton.disabled = disabled;
+    elements.propertyControls.querySelectorAll("select").forEach((select) => {
+        select.disabled = disabled;
+    });
+}
+
 function showWrongAnswer(wrongProperties) {
     elements.feedback.className = "feedback error";
     elements.feedbackText.textContent = createErrorMessage(wrongProperties);
@@ -392,6 +430,14 @@ function showWrongAnswer(wrongProperties) {
     elements.gameBoard.classList.add("error");
     showReaction("error", IMAGE_PATHS.sad, "עוד ניסיון קטן");
     window.setTimeout(() => elements.gameBoard.classList.remove("error"), 500);
+}
+
+function createErrorMessage(wrongProperties) {
+    if (wrongProperties.length === 1) {
+        return `כמעט! בדקו שוב את ${PROPERTY_SETTINGS[wrongProperties[0]].cssName}.`;
+    }
+
+    return `עדיין לא הגענו לפרחים. כדאי לבדוק שוב ${wrongProperties.length} מאפיינים.`;
 }
 
 async function animateToyToSelection() {
@@ -429,6 +475,40 @@ async function animateToyToSelection() {
     await Promise.allSettled(animations);
 }
 
+function completeCurrentLevel() {
+    const levelIndex = state.currentLevel;
+    const levelScore = Math.max(40, 100 - (currentAttempts - 1) * 12);
+
+    levelSolved = true;
+    elements.feedback.className = "feedback success";
+    elements.feedbackText.textContent = `הצלחתם! טוי הגיעה לפרחים וקיבלתם ${levelScore} נקודות.`;
+    elements.nextButton.disabled = false;
+    elements.checkButton.disabled = true;
+    elements.gameBoard.classList.add("success");
+
+    elements.propertyControls.querySelectorAll("select").forEach((select) => {
+        select.disabled = true;
+    });
+
+    elements.playerLayer.querySelectorAll(".toy-piece").forEach((image) => {
+        image.src = IMAGE_PATHS.toyWithFlower;
+        image.alt = "טוי מריחה פרח";
+    });
+
+    showReaction("success", IMAGE_PATHS.happy, "מצאנו את הפרחים!");
+
+    if (!state.completedLevels.includes(levelIndex)) {
+        state.completedLevels.push(levelIndex);
+        state.completedLevels.sort((first, second) => first - second);
+    }
+
+    state.scores[levelIndex] = Math.max(Number(state.scores[levelIndex]) || 0, levelScore);
+    state.highestUnlocked = Math.min(Math.max(state.highestUnlocked, levelIndex + 1), LEVELS.length - 1);
+    saveProgress();
+    updateProgressDisplay();
+    createLevelNavigation();
+}
+
 function showReaction(type, imagePath, text) {
     window.clearTimeout(feedbackTimer);
     elements.reactionCard.className = `reaction-card visible ${type}`;
@@ -443,6 +523,24 @@ function showReaction(type, imagePath, text) {
 function hideReaction() {
     elements.reactionCard.className = "reaction-card";
     elements.reactionCard.setAttribute("aria-hidden", "true");
+}
+
+function resetCurrentLevel() {
+    renderLevel(state.currentLevel);
+    elements.feedbackText.textContent = "השלב אופס. נסו שוב!";
+}
+
+function goToNextLevel() {
+    if (!levelSolved) {
+        return;
+    }
+
+    if (state.currentLevel === LEVELS.length - 1) {
+        openCompletionDialog();
+        return;
+    }
+
+    renderLevel(state.currentLevel + 1);
 }
 
 function updateProgressDisplay() {
