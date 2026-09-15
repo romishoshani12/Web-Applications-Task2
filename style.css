@@ -838,3 +838,29 @@ select:focus-visible,
     from { transform: scale(0.85); }
     to { transform: scale(1.25); }
 }
+
+@media (max-width: 980px) {
+    .game-workspace {
+        flex-direction: column;
+    }
+
+    .control-panel {
+        width: 100%;
+        flex-basis: auto;
+    }
+
+    .control-panel form {
+        display: flex;
+        align-items: flex-end;
+        gap: 1rem;
+    }
+
+    .code-block {
+        flex: 1 1 auto;
+    }
+
+    .action-buttons {
+        width: 15rem;
+        flex: 0 0 auto;
+    }
+}
