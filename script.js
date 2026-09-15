@@ -384,6 +384,44 @@ function applyFlexValues(layer, values) {
     });
 }
 
+async function checkSolution(event) {
+    event.preventDefault();
+
+    if (levelSolved || elements.checkButton.disabled) {
+        return;
+    }
+
+    const level = LEVELS[state.currentLevel];
+    const wrongProperties = level.properties.filter(
+        (propertyKey) => currentSelections[propertyKey] !== level.solution[propertyKey]
+    );
+
+    currentAttempts += 1;
+    elements.attemptCount.textContent = String(currentAttempts);
+    setGameControlsDisabled(true);
+    elements.feedback.className = "feedback moving";
+    elements.feedbackText.textContent = "טוי יוצאת לדרך…";
+
+    await animateToyToSelection();
+
+    if (wrongProperties.length > 0) {
+        showWrongAnswer(wrongProperties);
+        setGameControlsDisabled(false);
+        return;
+    }
+
+    completeCurrentLevel();
+    elements.resetButton.disabled = false;
+}
+
+function setGameControlsDisabled(disabled) {
+    elements.checkButton.disabled = disabled;
+    elements.resetButton.disabled = disabled;
+    elements.propertyControls.querySelectorAll("select").forEach((select) => {
+        select.disabled = disabled;
+    });
+}
+
 function showWrongAnswer(wrongProperties) {
     elements.feedback.className = "feedback error";
     elements.feedbackText.textContent = createErrorMessage(wrongProperties);
@@ -392,6 +430,14 @@ function showWrongAnswer(wrongProperties) {
     elements.gameBoard.classList.add("error");
     showReaction("error", IMAGE_PATHS.sad, "עוד ניסיון קטן");
     window.setTimeout(() => elements.gameBoard.classList.remove("error"), 500);
+}
+
+function createErrorMessage(wrongProperties) {
+    if (wrongProperties.length === 1) {
+        return `כמעט! בדקו שוב את ${PROPERTY_SETTINGS[wrongProperties[0]].cssName}.`;
+    }
+
+    return `עדיין לא הגענו לפרחים. כדאי לבדוק שוב ${wrongProperties.length} מאפיינים.`;
 }
 
 async function animateToyToSelection() {
