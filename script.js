@@ -384,6 +384,16 @@ function applyFlexValues(layer, values) {
     });
 }
 
+function showWrongAnswer(wrongProperties) {
+    elements.feedback.className = "feedback error";
+    elements.feedbackText.textContent = createErrorMessage(wrongProperties);
+    elements.gameBoard.classList.remove("error");
+    void elements.gameBoard.offsetWidth;
+    elements.gameBoard.classList.add("error");
+    showReaction("error", IMAGE_PATHS.sad, "עוד ניסיון קטן");
+    window.setTimeout(() => elements.gameBoard.classList.remove("error"), 500);
+}
+
 async function animateToyToSelection() {
     const slots = [...elements.playerLayer.children];
 
