@@ -576,3 +576,28 @@ function closeCompletionDialog() {
         elements.completionDialog.removeAttribute("open");
     }
 }
+
+function replayGame() {
+    try {
+        localStorage.removeItem(STORAGE_KEY);
+    } catch (error) {
+        // המשחק החדש בזיכרון עדיין עובד ללא אחסון מקומי.
+    }
+
+    state = emptyProgress();
+    closeCompletionDialog();
+    renderLevel(0);
+}
+
+elements.flexForm.addEventListener("submit", checkSolution);
+elements.resetButton.addEventListener("click", resetCurrentLevel);
+elements.nextButton.addEventListener("click", goToNextLevel);
+elements.replayButton.addEventListener("click", replayGame);
+elements.closeDialogButton.addEventListener("click", closeCompletionDialog);
+elements.completionDialog.addEventListener("click", (event) => {
+    if (event.target === elements.completionDialog) {
+        closeCompletionDialog();
+    }
+});
+
+renderLevel(state.currentLevel);
