@@ -864,3 +864,100 @@ select:focus-visible,
         flex: 0 0 auto;
     }
 }
+
+@media (max-width: 680px) {
+    .page-shell {
+        width: min(100% - 1rem, 1240px);
+        padding-bottom: 1rem;
+    }
+
+    .site-header {
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .brand-subtitle {
+        display: none;
+    }
+
+    .header-progress {
+        width: 45%;
+        font-size: 0.78rem;
+        text-align: left;
+    }
+
+    .intro-card {
+        align-items: center;
+        padding: 1.15rem;
+    }
+
+    .intro-card h1 {
+        font-size: 1.55rem;
+    }
+
+    .intro-copy > p:last-child {
+        font-size: 0.9rem;
+    }
+
+    .level-counter > span:not(.level-number) {
+        display: none;
+    }
+
+    .level-number {
+        font-size: 2.8rem;
+    }
+
+    .level-navigation {
+        padding: 0.65rem 0.75rem;
+        justify-content: flex-start;
+    }
+
+    .control-panel,
+    .board-card {
+        padding: 1rem;
+        border-radius: 1.1rem;
+    }
+
+    .control-panel form {
+        display: block;
+    }
+
+    .action-buttons {
+        width: 100%;
+    }
+
+    .code-line select {
+        width: 8.8rem;
+    }
+
+    .reaction-card {
+        min-height: 0;
+        padding: 0.75rem;
+        border-radius: 1.5rem;
+    }
+
+    .reaction-image-wrap {
+        width: 8.5rem;
+        height: 8.5rem;
+        border-radius: 50%;
+    }
+
+    .reaction-text {
+        padding: 0 0.7rem;
+        font-size: 1.15rem;
+    }
+
+    .completion-dialog[open] {
+        display: block;
+    }
+
+    .completion-photo {
+        width: 100%;
+        height: 13rem;
+        min-height: 0;
+    }
+
+    .completion-content {
+        padding: 1.35rem;
+    }
+}
