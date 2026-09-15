@@ -525,6 +525,24 @@ function hideReaction() {
     elements.reactionCard.setAttribute("aria-hidden", "true");
 }
 
+function resetCurrentLevel() {
+    renderLevel(state.currentLevel);
+    elements.feedbackText.textContent = "השלב אופס. נסו שוב!";
+}
+
+function goToNextLevel() {
+    if (!levelSolved) {
+        return;
+    }
+
+    if (state.currentLevel === LEVELS.length - 1) {
+        openCompletionDialog();
+        return;
+    }
+
+    renderLevel(state.currentLevel + 1);
+}
+
 function updateProgressDisplay() {
     const completedCount = state.completedLevels.length;
     const progressPercent = (completedCount / LEVELS.length) * 100;

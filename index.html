@@ -84,6 +84,10 @@
                         <span>ניקוד: <span id="score-count" class="text-emphasis">0</span></span>
                     </div>
 
+                    <button class="button button-next" id="next-button" type="button" disabled>
+                        לשלב הבא
+                        <span aria-hidden="true">←</span>
+                    </button>
                 </section>
 
                 <section class="board-card" aria-labelledby="board-title">
@@ -98,6 +102,7 @@
                         <div id="game-board" class="game-board">
                             <div id="target-layer" class="piece-layer target-layer" aria-hidden="true"></div>
                             <div id="player-layer" class="piece-layer player-layer"></div>
+                            <div class="board-shine" aria-hidden="true"></div>
                         </div>
                     </div>
 
