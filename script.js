@@ -557,3 +557,22 @@ function clearFeedback(message = "בחרו ערכים ובדקו את הפתרו
     elements.feedback.className = "feedback";
     elements.feedbackText.textContent = message;
 }
+
+function openCompletionDialog() {
+    const totalScore = Object.values(state.scores).reduce((sum, score) => sum + Number(score || 0), 0);
+    elements.finalScore.textContent = String(totalScore);
+
+    if (typeof elements.completionDialog.showModal === "function") {
+        elements.completionDialog.showModal();
+    } else {
+        elements.completionDialog.setAttribute("open", "");
+    }
+}
+
+function closeCompletionDialog() {
+    if (typeof elements.completionDialog.close === "function") {
+        elements.completionDialog.close();
+    } else {
+        elements.completionDialog.removeAttribute("open");
+    }
+}
